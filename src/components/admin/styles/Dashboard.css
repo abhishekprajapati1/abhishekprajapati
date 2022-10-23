@@ -1,0 +1,24 @@
+.dashboard-wrapper{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: -70px;
+    color: rgb(29, 28, 28);
+}
+
+.dashboard-wrapper .navbar{
+    background-color: black;
+    padding: 10px 100px;
+}
+
+.dashboard-wrapper .grid-con{
+    position: relative;
+    top: 80px;
+    /* background-color: rgb(216, 212, 212); */
+    padding: 0 20px 20px 20px;
+    height: 85vh;
+    box-shadow: -5px 5px 10px rgb(170, 170, 170);
+}
+.dashboard-wrapper .navitem{
+    margin-top: 20px;
+}

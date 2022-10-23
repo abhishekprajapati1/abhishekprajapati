@@ -1,0 +1,82 @@
+.theme-light{
+    background: rgb(240, 240, 240);
+    /* color: rgb(50, 50, 50) */
+  }
+  
+  #toggle-mode{
+    background-color: var(--navLink);
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    z-index: 1000;
+  }
+  
+  #toggle-mode i{
+    font-size: 25px;
+  }
+
+
+  .theme-light .home-container{
+    background-color: rgb(230, 230, 230);
+    color: #2c2c2c;
+    box-shadow: 0px -5px 15px #cdcdcd, 0px 5px 15px #cdcdcd;
+  }
+
+  .theme-light .hero-description h1{
+    text-shadow: none;
+  }
+
+  .theme-light .default-para{
+    color: rgb(75, 75, 75);
+  }
+
+  .theme-light .head h2{
+    color: #2c2c2c;
+  }
+
+  .theme-light .head h3{
+    color: #2c2c2c;
+  }
+
+  .theme-light .title-section h1{
+    color: #3c3c3c;
+  }
+
+
+  .theme-light .main-btn{
+    color: #2c2c2c;
+  }
+
+
+  .theme-light .nav-panel:hover{
+    box-shadow: 1px 0px 15px #d3d3d3;
+  }
+
+
+  .theme-light .info-card{
+    background-color: white;
+    color:rgb(75, 75, 75);
+    /* border: 1px solid #dfdfdf; */
+  }
+
+  .theme-light .info-card:hover{
+    background: white;
+    box-shadow: 3px 3px 20px #b3b3b3;
+  }
+
+  .theme-light .contact-wrapper .contact-details .contact-detail{
+    background-color: white;
+    color: #3c3c3c;
+  }
+
+  .theme-light .posts-container .post-gallery .post {
+    background-color: rgba(255, 255, 255, 0.65);
+    color: #2c2c2c;
+    box-shadow: 5px 5px 20px rgb(151 151 151);
+}
+.theme-light .posts-container .post-gallery .post p{
+    color: rgb(68, 68, 68);
+}
