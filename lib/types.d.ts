@@ -1,0 +1,9 @@
+import React, { SVGProps } from "react"
+
+export type WrapperProps = {
+    children?: React.ReactNode;
+}
+
+export interface IconInterface extends SVGAElement<SVGProps> {
+    
+}
