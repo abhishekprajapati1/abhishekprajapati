@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter, Fira_Code, M_PLUS_Code_Latin } from 'next/font/google'
+import { M_PLUS_Code_Latin } from 'next/font/google'
 import '../styles/globals.css'
 import WebsiteNavigation from '@/components/navigations/WebsiteNavigation'
 import Provider from '@/store/Provider'
 
-const inter = Inter({ subsets: ['latin'] })
-const fira = Fira_Code()
-const mpcl = M_PLUS_Code_Latin()
+const mpcl = M_PLUS_Code_Latin({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Abhishek Prajapati',
