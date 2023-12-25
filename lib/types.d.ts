@@ -5,5 +5,11 @@ export type WrapperProps = {
 }
 
 export interface IconInterface extends SVGAElement<SVGProps> {
-    
+
+}
+
+export type SkillCardProps = {
+    label: string;
+    image: string;
+    href: string;
 }

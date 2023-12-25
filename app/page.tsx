@@ -1,4 +1,5 @@
 import SkillCard from '@/components/home/SkillCard'
+import { skills } from '@/lib/list'
 import Image from 'next/image'
 
 export default function Home() {
@@ -22,8 +23,10 @@ export default function Home() {
 
       <div className='flex flex-col gap-8'>
         <h2 className='font-semibold text-2xl'>techverse that I have been exploring... 🌐 </h2>
-        <div className='grid gird-cols-1 sm:grid-cols-2 md:grid-cols-3'>
-          {<SkillCard />}
+        <div className='grid gird-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 md:gap-16'>
+          {
+            skills.map((skill, i) => <SkillCard key={i} data={skill} />)
+          }
         </div>
       </div>
     </main>
