@@ -7,6 +7,11 @@ export const skills: SkillCardProps[] = [
         image: "/assets/nextjs.png"
     },
     {
+        label: "NestJS",
+        href: "#",
+        image: "/assets/nestjs.png"
+    },
+    {
         label: "ExpressJS",
         href: "#",
         image: "/assets/expressjs.png"
@@ -32,11 +37,6 @@ export const skills: SkillCardProps[] = [
         image: "/assets/docker.png"
     },
     {
-        label: "NestJS",
-        href: "#",
-        image: "/assets/nestjs.png"
-    },
-    {
         label: "TypeScript",
         href: "#",
         image: "/assets/typescript.png"
@@ -55,6 +55,11 @@ export const skills: SkillCardProps[] = [
         label: "TailwindCSS",
         href: "#",
         image: "/assets/tailwind.png"
+    },
+    {
+        label: "Tanstack Query",
+        href: "#",
+        image: "/assets/tanstack.png"
     },
 ]
 

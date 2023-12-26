@@ -13,3 +13,23 @@ export type SkillCardProps = {
     image: string;
     href: string;
 }
+
+export type PostType = {
+    id: string;
+    published: string;
+    updated: string;
+    selfLink: string;
+    title: string;
+    content: string | TrustedHTML;
+    author: {
+        id: string;
+        displayName: string;
+        url: string;
+        image: ImageData
+    },
+    replies: {
+        totalItems: string;
+        selfLink: string;
+    },
+    etag: string;
+}

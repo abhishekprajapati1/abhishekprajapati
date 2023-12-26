@@ -7,14 +7,12 @@ const SkillCard: React.FC<{ data: SkillCardProps }> = ({ data }) => {
         <div className='border p-6 rounded-sm flex items-center justify-center gap-4'>
             {
                 data.image && (
-                    <div className='w-[30px] h-[30px] relative'>
-                        <Image
-                            src={data.image}
-                            alt={data.label + "logo"}
-                            fill
-                            objectFit='cover'
-                        />
-                    </div>
+                    <Image
+                        src={data.image}
+                        alt={data.label + "logo"}
+                        width={30}
+                        height={30}
+                    />
                 )
             }
             <p> {data.label}</p>
