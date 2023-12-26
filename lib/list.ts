@@ -4,76 +4,75 @@ export const skills: SkillCardProps[] = [
     {
         label: "NextJS",
         href: "https://nextjs.org/",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/nextjs.png"
     },
     {
         label: "ExpressJS",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/expressjs.png"
     },
     {
         label: "AWS",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/aws.png"
     },
     {
         label: "PrismaORM",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/prisma.png"
     },
     {
         label: "NodeJS",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/nodejs.png"
     },
     {
         label: "Docker",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/docker.png"
     },
     {
         label: "NestJS",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/nestjs.png"
     },
     {
         label: "TypeScript",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/typescript.png"
     },
     {
         label: "Jenkins",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
-    },
-    {
-        label: "JavaScript",
-        href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/jenkins.png"
     },
     {
         label: "Redux Toolkit",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
-    },
-    {
-        label: "Tanstack Query",
-        href: "#",
-        image: "https://nextjs.org/favicon.ico"
-    },
-    {
-        label: "Shadcn",
-        href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/toolkit.png"
     },
     {
         label: "TailwindCSS",
         href: "#",
-        image: "https://nextjs.org/favicon.ico"
-    },
-    {
-        label: "Zustand",
-        href: "#",
-        image: "https://nextjs.org/favicon.ico"
+        image: "/assets/tailwind.png"
     },
 ]
+
+export const commonKeywords = [
+    'abhishek',
+    'abhishekprajapati1',
+    'abhi0661236',
+    'ap0661236@gmail.com',
+    'itisabhi',
+    'Abhishek Prajapati',
+    'developer',
+    'fullstack developer',
+    'web developer',
+    'developer abhishek',
+    'prajapati abhishek',
+    'Software Engineer',
+    'Web Developer Portfolio',
+    'itisabhi abhishek prajapati',
+    'devops engineer',
+    'aws developer'
+];
