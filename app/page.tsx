@@ -37,7 +37,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='flex items-center gap-6'>
+      <div className='flex items-center gap-6 flex-wrap'>
         <Link href="mailto:ap0661236@gmail.com" className='flex items-center'>
           <span className='text-lg'>say hello</span>
           <GoArrowIcon className='w-[20px] h-[20px]' />
