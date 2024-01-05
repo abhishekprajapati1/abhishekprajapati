@@ -6,7 +6,10 @@ import { commonKeywords } from '@/lib/list'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  keywords: [...commonKeywords, 'Skills Abhishek Prajapati', 'Engineer Abhishek Prajapati']
+  keywords: [...commonKeywords, 'Skills Abhishek Prajapati', 'Engineer Abhishek Prajapati'],
+  verification: {
+    google: "UBW1X58fR9f4b1tUjStrdvJm6h_1CvFOTHkXEUgCi1w"
+  }
 }
 
 export default function Home() {

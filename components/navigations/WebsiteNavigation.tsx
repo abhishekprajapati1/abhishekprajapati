@@ -5,7 +5,7 @@ import ThemeToggler from './ThemeToggler'
 const WebsiteNavigation = () => {
     return (
         <nav className='flex items-center justify-between'>
-            <ul className='flex items-center gap-4'>
+            <ul className='flex items-center gap-10'>
                 <li>
                     <Link href="/">home</Link>
                 </li>
@@ -14,11 +14,11 @@ const WebsiteNavigation = () => {
 
                 </li>
                 <li>
-                    <Link href="/blog">blog</Link>
-
+                    <Link href="/education">education</Link>
                 </li>
                 <li>
-                    <Link href="/interests">interests</Link>
+                    <Link href="/blog">blog</Link>
+
                 </li>
             </ul>
             <ThemeToggler />

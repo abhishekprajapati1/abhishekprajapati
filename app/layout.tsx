@@ -9,7 +9,9 @@ const mpcl = M_PLUS_Code_Latin({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Abhishek Prajapati',
   description: `I'm not just a coder; I'm a digital storyteller, crafting experiences that resonate. Let's embark on a journey where every line of code tells a tale, and every project is an adventure waiting to unfold. Join me in shaping the future of the digital realm! `,
-  // googleSiteVerification: "UBW1X58fR9f4b1tUjStrdvJm6h_1CvFOTHkXEUgCi1w"
+  verification: {
+    google: "UBW1X58fR9f4b1tUjStrdvJm6h_1CvFOTHkXEUgCi1w"
+  }
 }
 
 export default function RootLayout({
