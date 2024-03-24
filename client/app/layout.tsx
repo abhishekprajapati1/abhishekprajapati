@@ -3,6 +3,8 @@ import { M_PLUS_Code_Latin } from 'next/font/google'
 import '../styles/globals.css'
 import WebsiteNavigation from '@/components/navigations/WebsiteNavigation'
 import Provider from '@/store/Provider'
+import PageRenderer from '@/components/PageRenderer'
+import { PAGES_WITHOUT_NAVBAR } from '@/lib/constants'
 
 const mpcl = M_PLUS_Code_Latin({ subsets: ['latin'] })
 
@@ -21,9 +23,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`w-full sm:w-[90%] md:w-[60%] lg:w-[732px] mx-auto px-6 py-[58px] ${mpcl.className}`}>
+      <body className={`w-full h-screen overflow-auto sm:w-[90%] md:w-[60%] lg:w-[732px] mx-auto px-6 py-[58px] ${mpcl.className}`}>
         <Provider>
-          <WebsiteNavigation />
+          <PageRenderer behaviour='exclude' pathnames={PAGES_WITHOUT_NAVBAR}>
+            <WebsiteNavigation />
+          </PageRenderer>
           {children}
         </Provider>
       </body>
