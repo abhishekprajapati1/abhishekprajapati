@@ -10,6 +10,7 @@ async function bootstrap() {
 
   const allowedOrigins = [
     "http://localhost:3000",
+    "https://abhishekprajapati.vercel.app"
   ];
 
   const allowedHeaders = [
