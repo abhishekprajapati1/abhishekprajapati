@@ -1,7 +1,8 @@
 import axios, { AxiosError } from "axios";
+import ENDPOINTS from "./endpoints";
+import { TOKEN_VALIDITY } from "./constants";
 
 export const baseURL = process.env.NODE_ENV === "development" ? 'http://localhost:4000/api/' : 'https://itisabhi.onrender.com/api/';
-// export const clientUrl = process.env.NODE_ENV === "development" ? "http://localhost:3002/" : "https://dev.hospotribe.com/";
 
 export const Imageapi = axios.create({
     withCredentials: true,
@@ -29,16 +30,16 @@ export type RequestError = AxiosError & {
     }
 }
 
-// export const logout = async () => {
-//     try {
-//         const response = await api.post(endpoints.LOGOUT);
-//         toast.success(response?.data?.message);
-//         window.localStorage.clear();
-//         location.href = "/login"
-//     } catch (err: any) {
-//         showErrorMessage({ error: err });
-//     }
-// }
+export const logout = async () => {
+    try {
+        const response = await api.post(ENDPOINTS.LOGOUT);
+        alert(response?.data?.message);
+        window.localStorage.clear();
+        location.href = "/admin/login"
+    } catch (err: any) {
+        showErrorMessage({ error: err });
+    }
+}
 
 interface IShowErrorMessage {
     error: RequestError,
@@ -51,7 +52,7 @@ interface IShowErrorMessage {
 export const showErrorMessage = (data: IShowErrorMessage) => {
 
     const { error, redirect } = data || {};
-    const { shouldRedirect = true, path = "/login" } = redirect || {};
+    const { shouldRedirect = true, path = "/admin/login" } = redirect || {};
 
     let message;
     if (Array.isArray(error?.response?.data?.message) && error?.response?.data?.message.length > 0) {
@@ -76,25 +77,16 @@ export type TOKEN_TO_REFRESH = {
 
 
 
-// export const refreshToken = async (token: TOKEN_TO_REFRESH, keyname: string = TOKEN_VALIDITY.auth_token) => {
-//     try {
-//         const response = await api.get(`${endpoints.REFRESH_TOKEN}?type=${token.type}`);
-//         const newToken: TOKEN_TO_REFRESH = response.data?.data?.token;
-//         if (newToken) {
-//             window?.localStorage?.setItem(keyname, JSON.stringify({ type: newToken.type, life: newToken.life }));
-//         }
-//     } catch (error: any) {
-//         showErrorMessage({ error });
-//     }
-// }
-
-// export const getUserDetails = async (token: string) => {
-//     try {
-//         const response = await api.get(endpoints.USER_DETAILS, { headers: { Authorization: token } });
-//         return response?.data?.data;
-//     } catch (error) {
-//         return null;
-//     }
-// }
+export const refreshToken = async (keyname: string = TOKEN_VALIDITY.auth_token) => {
+    try {
+        const response = await api.get(ENDPOINTS.REFRESH_TOKEN);
+        const newToken: TOKEN_TO_REFRESH = response.data?.data?.token;
+        if (newToken) {
+            window?.localStorage?.setItem(keyname, JSON.stringify({ type: newToken.type, life: newToken.life }));
+        }
+    } catch (error: any) {
+        showErrorMessage({ error });
+    }
+}
 
 export default api;

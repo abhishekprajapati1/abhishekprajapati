@@ -18,4 +18,37 @@ model User {
   username String @unique
   name     String
   password String
+  blogs    Blog[]
+  tags     Tag[]
+}
+
+enum BlogStatus {
+  published
+  draft
+  archived
+}
+
+model Blog {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  slug       String      @unique
+  content    String
+  status     BlogStatus? @default(draft)
+  created_at DateTime?   @default(now())
+  updated_at DateTime?   @updatedAt
+  user       User        @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id    String      @db.ObjectId
+  tags       Tag[]       @relation(fields: [tag_ids], references: [id])
+  tag_ids    String[]    @db.ObjectId
+}
+
+model Tag {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String    @unique
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  blogs      Blog[]    @relation(fields: [blog_ids], references: [id])
+  blog_ids   String[]  @db.ObjectId
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id    String    @db.ObjectId
 }

@@ -21,3 +21,17 @@
   letter-spacing: 1.1px;
   word-spacing: 8px;
 }
+
+@layer base {
+  input {
+    @apply px-4 py-2 bg-gray-50
+  }
+
+  button {
+    @apply px-4 py-2 rounded-md font-semibold
+  }
+
+  *::-webkit-scrollbar {
+    @apply w-0
+  }
+}

@@ -21,7 +21,7 @@ const LoginPage = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='h-full grid place-content-center'>
-            <div className='flex flex-col gap-4 w-[250px] lg:w-[350px] p-6 shadow-xl rounded-xl'>
+            <div className='flex flex-col gap-4 w-[280px] sm:w-[350px] md:w-[450px] lg:w-[500px] p-6 shadow-xl rounded-xl'>
                 <h1 className='text-lg font-semibold'>Welcome back</h1>
                 <input
                     type="text"
@@ -33,7 +33,7 @@ const LoginPage = () => {
                     placeholder='password'
                     {...register('password')}
                 />
-                <button type="submit" className='bg-green-500 hover:bg-green-400 text-white rounded-md'>
+                <button type="submit" className='bg-green-500 hover:bg-green-400 text-white'>
                     Login
                 </button>
             </div>

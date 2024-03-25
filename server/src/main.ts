@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { json, urlencoded } from 'express';
 import * as cookieParser from 'cookie-parser'
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -29,6 +30,17 @@ async function bootstrap() {
   app.use(cookieParser());
 
 
-  await app.listen(4000);
+
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true,
+    transformOptions: {
+      enableImplicitConversion: true,
+    },
+    whitelist: true,
+    forbidNonWhitelisted: true,
+  }))
+
+
+  await app.listen(4000, () => Logger.log("Server is running and listening on http://127.0.0.1:4000"));
 }
 bootstrap();
