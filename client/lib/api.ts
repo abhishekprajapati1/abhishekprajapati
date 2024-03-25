@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import ENDPOINTS from "./endpoints";
 import { TOKEN_VALIDITY } from "./constants";
+import { getCookie, setCookie } from "cookies-next";
 
 export const baseURL = process.env.NODE_ENV === "development" ? 'http://localhost:4000/api/' : 'https://itisabhi.onrender.com/api/';
 
@@ -8,7 +9,7 @@ export const Imageapi = axios.create({
     withCredentials: true,
     baseURL,
     headers: {
-        "Content-Type": "multipart/formdata",
+        "Content-Type": "multipart/formdata"
     },
 });
 
@@ -17,6 +18,8 @@ const api = axios.create({
     baseURL,
     headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer " + getCookie("auth_token"),
+        "refresh_token": getCookie("refresh_token")
     },
 });
 
@@ -73,6 +76,7 @@ export const showErrorMessage = (data: IShowErrorMessage) => {
 export type TOKEN_TO_REFRESH = {
     type: string;
     life: number;
+    value: string;
 }
 
 
@@ -80,9 +84,13 @@ export type TOKEN_TO_REFRESH = {
 export const refreshToken = async (keyname: string = TOKEN_VALIDITY.auth_token) => {
     try {
         const response = await api.get(ENDPOINTS.REFRESH_TOKEN);
-        const newToken: TOKEN_TO_REFRESH = response.data?.data?.token;
+        const newToken: TOKEN_TO_REFRESH = response.data?.data?.auth_token;
         if (newToken) {
             window?.localStorage?.setItem(keyname, JSON.stringify({ type: newToken.type, life: newToken.life }));
+        }
+        if (newToken && response?.data?.data?.refresh_token) {
+            setCookie('auth_token', newToken.value);
+            setCookie('refresh_token', response?.data?.data?.refresh_token);
         }
     } catch (error: any) {
         showErrorMessage({ error });

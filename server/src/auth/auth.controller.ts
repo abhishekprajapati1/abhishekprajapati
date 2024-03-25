@@ -7,7 +7,6 @@ import { removeCookie, setCookie } from '../../lib/utils';
 import { Request, Response } from 'express';
 import { ITenant, Tenant } from './decorators/tenant.decorator';
 import { PublicApi } from './decorators/public.decorator';
-import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -31,8 +30,8 @@ export class AuthController {
         const refresh_token = this.tokenService.generateToken(refreshTokenPayload, { expiresIn: TOKEN_EXPIRATIONS[TOKENS.refresh_auth_token] })
 
         // set tokens in cookie
-        setCookie(response, { name: TOKENS.auth_token, data: auth_token });
-        setCookie(response, { name: TOKENS.refresh_auth_token, data: refresh_token, age: MAX_AGES[TOKENS.refresh_auth_token] });
+        // setCookie(response, { name: TOKENS.auth_token, data: auth_token });
+        // setCookie(response, { name: TOKENS.refresh_auth_token, data: refresh_token, age: MAX_AGES[TOKENS.refresh_auth_token] });
 
 
         return response.status(HttpStatus.OK).json({
@@ -63,7 +62,7 @@ export class AuthController {
 
     @Get("refresh-token")
     refreshToken(@Req() req: Request, @Res() response: Response, @Tenant() user: ITenant) {
-        const refreshToken = req?.cookies?.[TOKENS.refresh_auth_token] || req.headers['authorization']?.split(" ")?.[0];
+        const refreshToken = req?.cookies?.[TOKENS.refresh_auth_token] || req.headers['refresh_token'];
         const refreshPayload = this.tokenService.verifyToken(refreshToken);
 
         if (refreshPayload.type !== TOKENS.refresh_auth_token || refreshPayload.id !== user.id) {
@@ -73,8 +72,8 @@ export class AuthController {
         const auth_token = this.tokenService.generateToken(refreshPayload.data);
         const refreshTokenPayload = { type: TOKENS.refresh_auth_token, data: refreshPayload.data, id: user.id };
         const refresh_token = this.tokenService.generateToken(refreshTokenPayload, { expiresIn: TOKEN_EXPIRATIONS[TOKENS.refresh_auth_token] })
-        setCookie(response, { data: auth_token, name: TOKENS.auth_token });
-        setCookie(response, { data: refresh_token, name: TOKENS.refresh_auth_token, age: MAX_AGES[TOKENS.refresh_auth_token] })
+        // setCookie(response, { data: auth_token, name: TOKENS.auth_token });
+        // setCookie(response, { data: refresh_token, name: TOKENS.refresh_auth_token, age: MAX_AGES[TOKENS.refresh_auth_token] })
 
         return response.status(HttpStatus.OK).json({
             success: true,

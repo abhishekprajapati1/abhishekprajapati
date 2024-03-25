@@ -17,6 +17,7 @@ async function bootstrap() {
     "*",
     "content-type",
     "authorization",
+    "refresh_token",
     "access-control-allow-origin",
   ];
 
