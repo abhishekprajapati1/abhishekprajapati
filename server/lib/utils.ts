@@ -12,7 +12,7 @@ export const compareString = (str: string, hash: string): boolean => {
 
 export const setCookie = (response: Response, { data, age, name }: { data: any, age?: number, name: string }): void => {
     response.cookie(name, data, {
-        ...(!Boolean(process.env.DEV_ENVIRONMENT) && { domain: "abhishekprajapati.vercel.app" }),
+        ...(!Boolean(process.env.DEV_ENVIRONMENT) && { domain: ".vercel.app" }),
         maxAge: age || MAX_AGES[TOKENS.auth_token],
         httpOnly: true,
         sameSite: "none",
@@ -22,6 +22,6 @@ export const setCookie = (response: Response, { data, age, name }: { data: any, 
 
 export const removeCookie = (response: Response, name: string): void => {
     response.clearCookie(name, {
-        ...(!Boolean(process.env.DEV_ENVIRONMENT) && { domain: "abhishekprajapati.vercel.app" })
+        ...(!Boolean(process.env.DEV_ENVIRONMENT) && { domain: ".vercel.app" })
     })
 }
