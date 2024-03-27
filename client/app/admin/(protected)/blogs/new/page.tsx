@@ -13,15 +13,22 @@ const ReactQuill = dynamic(
 import { Controller, useForm } from 'react-hook-form';
 import { IPostForm, PostStatus } from '@/lib/form';
 import useCreateBlog from '@/lib/mutations/blogs/useCreateBlog';
-import useFetch from '@/lib/hooks/useFetch';
-import ENDPOINTS from '@/lib/endpoints';
+import TagInput from '@/components/admin/blogs/tag-input';
+import SpinnerIcon from '@/components/icons/SpinnerIcon';
+
+const generateSlug = (str: string) => {
+    try {
+        return str.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+    } catch {
+        return ""
+    }
+}
 
 const CreateNewBlogPage = () => {
-    const { data: tags, isLoading } = useFetch({ endpoint: ENDPOINTS.TAGS });
     const { mutate, isPending } = useCreateBlog();
 
     const [status, setStatus] = useState<PostStatus>("draft")
-    const { control, handleSubmit } = useForm<IPostForm>({
+    const { control, handleSubmit, setValue } = useForm<IPostForm>({
         mode: "all",
         defaultValues: {
             title: "",
@@ -34,13 +41,14 @@ const CreateNewBlogPage = () => {
 
     const onSubmit = (data: IPostForm) => {
         data.status = status;
+        console.log(data);
         mutate(data);
     }
 
 
     return (
-        <div className='h-full overflow-auto py-4'>
-            <form onSubmit={handleSubmit(onSubmit)} className='flex gap-6'>
+        <div className={`h-full overflow-auto p-4 ${isPending && "pointer-events-none"}`}>
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-wrap md:flex-nowrap  gap-6'>
                 <div className='flex-grow'>
                     <Controller
                         name='title'
@@ -51,7 +59,7 @@ const CreateNewBlogPage = () => {
                                     className='text-3xl w-full bg-white focus-visible:outline-none break-words'
                                     placeholder='Blog title...'
                                     value={value}
-                                    onChange={onChange}
+                                    onChange={e => { onChange(e.target.value); setValue("slug", generateSlug(e.target.value)) }}
                                 />
                             )
                         }}
@@ -77,32 +85,65 @@ const CreateNewBlogPage = () => {
                         />
                     </div>
                 </div>
-                <div className='w-1/5 flex-shrink-0'>
+                <div className='w-[250px] flex flex-col-reverse md:flex-col gap-4 flex-shrink-0'>
                     <div className='flex items-center flex-wrap gap-4'>
-                        <button onClick={() => setStatus("draft")} className='flex-grow bg-green-200 hover:bg-green-100 text-green-500'>
-                            Save draft
+                        <button disabled={isPending} onClick={() => setStatus("draft")} className='flex-grow flex items-center justify-center gap-2 bg-green-200 hover:bg-green-100 text-green-500'>
+                            {
+                                status === "draft" && (
+                                    <>
+                                        {isPending && <SpinnerIcon className='w-5 h-5' />}
+                                        {!isPending && <span> Save draft</span>}
+                                        {isPending && <span>Saving...</span>}
+                                    </>
+                                )
+                            }
+                            {
+                                status !== "draft" && <span>Save draft</span>
+                            }
                         </button>
-                        <button onClick={() => setStatus("published")} className='w-fit bg-green-500 hover:bg-green-400 text-white'>
-                            Publish
+                        <button disabled={isPending} onClick={() => setStatus("published")} className='w-fit flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white'>
+                            {
+                                status === "published" && (
+                                    <>
+                                        {isPending && <SpinnerIcon className='w-5 h-5' />}
+                                        {!isPending && <span>Publish</span>}
+                                        {isPending && <span>Publishing...</span>}
+                                    </>
+                                )
+                            }
+                            {
+                                status !== "published" && <span>Publish</span>
+                            }
                         </button>
                     </div>
 
-                    <div className='mt-4'>
-                        {
-                            Array.isArray(tags) && (
-                                <Controller
-                                    name='tag_ids'
-                                    control={control}
-                                    render={({ field: { value, onChange } }) => (
-                                        <select value={Array.isArray(value) ? value[0] : value} onChange={e => onChange([e.target.value])} className='w-full h-[40px] px-2'>
-                                            {tags?.map(tag => (
-                                                <option key={tag.id} value={tag.id}>{tag.name}</option>
-                                            ))}
-                                        </select>
-                                    )}
-                                />
-                            )
-                        }
+                    <div>
+                        <div className='mb-4'>
+                            <label htmlFor="article-slug">Slug</label>
+                            <Controller
+                                name='slug'
+                                control={control}
+                                render={({ field: { value, onChange } }) => {
+                                    return (
+                                        <textarea
+                                            placeholder='enter-custom-slug'
+                                            className='w-full'
+                                            value={value}
+                                            onChange={e => onChange(generateSlug(e.target.value))}
+                                        />
+                                    )
+                                }}
+                            />
+                        </div>
+
+
+                        <div className=''>
+                            <Controller
+                                name='tag_ids'
+                                control={control}
+                                render={({ field: { value, onChange } }) => <TagInput id="search-input-for-tag" label="Assign Tags" value={value} onChange={onChange} />}
+                            />
+                        </div>
                     </div>
                 </div>
             </form>

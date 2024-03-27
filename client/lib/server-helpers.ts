@@ -10,3 +10,4 @@ export const protect = () => {
     const isLoggedIn = checkToken();
     if (!isLoggedIn) redirect("/admin/login");
 }
+
