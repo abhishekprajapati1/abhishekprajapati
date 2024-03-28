@@ -1,7 +1,7 @@
 import { IBlog } from '@/lib/types'
 import dayjs from 'dayjs'
 import React from 'react'
-import BlogAction from './BlogAction'
+import BlogAction from './blog-actions'
 
 interface BlogCard extends IBlog { }
 

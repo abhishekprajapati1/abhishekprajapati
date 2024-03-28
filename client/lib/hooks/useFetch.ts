@@ -6,9 +6,11 @@ interface UseFetch {
     endpoint: string;
     extractData?: boolean;
     options?: AxiosRequestConfig;
+    enabledKey?: any;
+    validate?: boolean;
 }
 
-const useFetch = ({ endpoint, extractData = true, options }: UseFetch) => {
+const useFetch = ({ endpoint, extractData = true, enabledKey, validate = false, options }: UseFetch) => {
     const result = useQuery({
         queryKey: [endpoint],
         queryFn: async () => {
@@ -18,6 +20,7 @@ const useFetch = ({ endpoint, extractData = true, options }: UseFetch) => {
             }
             return res.data;
         },
+        enabled: !validate ? true : Boolean(enabledKey) ? true : false
     });
     return result;
 };

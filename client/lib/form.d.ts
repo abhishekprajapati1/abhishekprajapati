@@ -7,7 +7,7 @@ export type PostStatus = "draft" | "published";
 export interface IPostForm {
     title: string;
     content: string;
-    status: PostStatus;
+    status?: PostStatus;
     tag_ids: string[];
     slug: string;
 }

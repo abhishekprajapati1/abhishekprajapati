@@ -20,6 +20,12 @@ export class BlogController {
         return { success: true, data }
     }
 
+    @Get("details/:blog_id")
+    async findForAdmin(@Param('blog_id') blog_id: string) {
+        const data = await this.blogService.findOneForAdmin({ blog_id });
+        return { success: true, data }
+    }
+
 
     @Post()
     async createBlog(@Body() createBlogDto: CreateBlogDto, @Tenant() user: ITenant) {

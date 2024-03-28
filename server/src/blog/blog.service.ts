@@ -7,6 +7,7 @@ interface ICreate extends IWithPrismaClient { user_id: string; data: CreateBlogD
 interface IisDuplicateSlug extends IWithPrismaClient { slug: string };
 interface IFindAll extends IWithPrismaClient { user_id: string }
 interface IFindOne extends IWithPrismaClient { slug: string }
+interface IFindOneForAdmin extends IWithPrismaClient { blog_id: string }
 interface IBlogExists extends IWithPrismaClient { blog_id: string }
 interface IUpdateBlog extends IWithPrismaClient { blog_id: string, data: Prisma.BlogUpdateInput }
 
@@ -62,6 +63,30 @@ export class BlogService {
                     }
                 },
                 tags: { select: { id: true, name: true } }
+            }
+        })
+        return data;
+    }
+    async findOneForAdmin({ blog_id, prisma }: IFindOneForAdmin) {
+        const PRISMA = prisma || this.prisma;
+        const data = await PRISMA.blog.findUnique({
+            where: { id: blog_id },
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                created_at: true,
+                updated_at: true,
+                status: true,
+                slug: true,
+                user: {
+                    select: {
+                        name: true,
+                        id: true,
+                        username: true,
+                    }
+                },
+                tag_ids: true,
             }
         })
         return data;

@@ -32,14 +32,19 @@
   }
 
   .icon-button {
-    @apply h-10 w-10 grid place-content-center rounded-md text-xl shadow-lg shadow-[#00000005]
+    @apply h-10 w-10 grid place-content-center disabled:cursor-not-allowed rounded-md text-xl shadow-lg shadow-[#00000005]
   }
 
   button {
     @apply px-4 py-2 rounded-md font-semibold
   }
 
+
   *::-webkit-scrollbar {
     @apply w-0
   }
+}
+
+.ql-editor {
+  padding: 0px !important;
 }
