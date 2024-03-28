@@ -4,6 +4,7 @@ const ENDPOINTS = {
     DETAILS: "auth/details",
     REFRESH_TOKEN: "auth/refresh-token",
     BLOGS: "blogs",
+    REMOVE_BLOG: (id: string) => `blogs/${id}`,
     TAGS: "tags"
 }
 

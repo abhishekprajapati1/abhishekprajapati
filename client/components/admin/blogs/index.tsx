@@ -2,6 +2,8 @@
 import ENDPOINTS from '@/lib/endpoints';
 import useFetch from '@/lib/hooks/useFetch';
 import React from 'react'
+import BlogCard from './BlogCard';
+import { IBlog } from '@/lib/types';
 
 const Blogs = () => {
     const { data, isLoading } = useFetch({ endpoint: ENDPOINTS.BLOGS });
@@ -15,12 +17,10 @@ const Blogs = () => {
     }
 
     return (
-        <div>
+        <div className='divide-y'>
             {
-                data.map((d: any) => (
-                    <div key={d.id} className='w-full p-6 rounded-xl shadow-xl'>
-                        {d.title}
-                    </div>
+                data.map((d: IBlog) => (
+                    <BlogCard key={d.id} {...d} />
                 ))
             }
         </div>

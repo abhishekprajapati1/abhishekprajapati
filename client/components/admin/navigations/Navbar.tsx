@@ -10,7 +10,7 @@ const Navbar = () => {
 
     if (isLoading) {
         return (
-            <div className='flex items-center px-4 h-[60px] bg-white shadow-lg shadow-gray-50 justify-between sticky top-0'>
+            <div className='flex content-wrapper items-center h-[60px] bg-white shadow-lg shadow-[#00000005] justify-between sticky top-0'>
                 <div className='h-6 w-1/3 rounded-md bg-gray-200 animate-pulse' />
                 <div className='h-6 w-6 rounded-md bg-gray-200 animate-pulse' />
             </div>
@@ -19,7 +19,7 @@ const Navbar = () => {
 
 
     return (
-        <div className='flex items-center px-4 h-[60px] bg-white shadow-lg shadow-gray-50 justify-between sticky top-0'>
+        <div className='flex content-wrapper items-center h-[60px] bg-white shadow-lg shadow-[#00000005] justify-between sticky top-0'>
             <div>
                 Hello {data?.name},
             </div>

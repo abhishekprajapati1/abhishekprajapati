@@ -9,7 +9,9 @@ const AdminLayout: FC<WrapperProps> = ({ children }) => {
     return (
         <div className='h-full overflow-auto'>
             <Navbar />
-            {children}
+            <div className='py-8 h-full content-wrapper'>
+                {children}
+            </div>
         </div>
     )
 }

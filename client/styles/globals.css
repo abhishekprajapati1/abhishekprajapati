@@ -27,6 +27,14 @@
     @apply px-4 py-2 bg-gray-50
   }
 
+  .content-wrapper {
+    @apply px-2 sm:px-4 md:px-10 lg:px-14
+  }
+
+  .icon-button {
+    @apply h-10 w-10 grid place-content-center rounded-md text-xl shadow-lg shadow-[#00000005]
+  }
+
   button {
     @apply px-4 py-2 rounded-md font-semibold
   }

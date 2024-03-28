@@ -33,3 +33,29 @@ export type PostType = {
     },
     etag: string;
 }
+
+// to be used for admin only
+
+export interface IUser {
+    id: string;
+    name: string;
+    username: string;
+}
+
+export type BlogStatus = "archived" | "draft" | "published";
+
+export interface ITag {
+    id: string; name: string;
+}
+
+export interface IBlog {
+    slug: string;
+    user: IUser;
+    id: string;
+    title: string;
+    content: string;
+    status: BlogStatus;
+    created_at: Date;
+    updated_at: Date;
+    tags: ITag[];
+}

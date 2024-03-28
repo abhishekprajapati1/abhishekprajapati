@@ -47,7 +47,7 @@ const CreateNewBlogPage = () => {
 
 
     return (
-        <div className={`h-full overflow-auto p-4 ${isPending && "pointer-events-none"}`}>
+        <div className={`h-full overflow-auto ${isPending && "pointer-events-none"}`}>
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-wrap md:flex-nowrap  gap-6'>
                 <div className='flex-grow'>
                     <Controller

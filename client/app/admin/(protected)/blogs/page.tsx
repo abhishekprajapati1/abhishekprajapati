@@ -2,11 +2,7 @@ import Blogs from '@/components/admin/blogs'
 import React from 'react'
 
 const BlogsPage = () => {
-    return (
-        <div>
-            <Blogs />
-        </div>
-    )
+    return <Blogs />
 }
 
 export default BlogsPage
