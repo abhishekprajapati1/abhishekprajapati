@@ -17,6 +17,10 @@ export class CreateBlogDto {
     status: BlogStatus;
 
     @IsArray()
+    @Transform(({ value }: { value: string[] }) => value.map(value => value.toLowerCase()))
+    keywords?: string[];
+
+    @IsArray()
     tag_ids: string[];
 
     @IsOptional()

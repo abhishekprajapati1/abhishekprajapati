@@ -2,7 +2,7 @@ import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, 
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { ITenant, Tenant } from '../auth/decorators/tenant.decorator';
-import { UpdateBlogStatusDto } from './dto/update-blog.dto';
+import { UpdateBlogDto, UpdateBlogStatusDto } from './dto/update-blog.dto';
 
 @Controller('blogs')
 export class BlogController {
@@ -38,14 +38,14 @@ export class BlogController {
         const exist = await this.blogService.isDuplicateSlug({ slug });
         if (exist) throw new BadRequestException({ success: false, message: "An article already exists with the same slug." });
 
-
         await this.blogService.create({ data: { ...createBlogDto, slug }, user_id: user.id });
 
         return { success: true, slug, message: "Blog created successfully." };
     }
 
     @Patch(':id')
-    async updateBlog() {
+    async updateBlog(@Param('id') blog_id: string, @Body() updateBlogDto: UpdateBlogDto) {
+        await this.blogService.updateBlog({ blog_id, data: updateBlogDto });
         return { success: true, message: "Blog updated successfully." };
     }
 

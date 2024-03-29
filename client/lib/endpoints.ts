@@ -4,6 +4,7 @@ const ENDPOINTS = {
     DETAILS: "auth/details",
     REFRESH_TOKEN: "auth/refresh-token",
     BLOGS: "blogs",
+    UPDATE_BLOG: (id: string) => `blogs/${id}`,
     REMOVE_BLOG: (id: string) => `blogs/${id}`,
     GET_BLOG_FOR_ADMIN: (id?: string) => `blogs/details/${id}`,
     TAGS: "tags"

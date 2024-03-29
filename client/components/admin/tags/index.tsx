@@ -18,7 +18,7 @@ const Tags = () => {
         <div className='grid grid-cols-12 gap-4'>
             {
                 Array.isArray(data) && data.length > 0 && data.map(d => (
-                    <div key={d.id} className='h-40 col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 grid place-content-center shadow-xl rounded-xl'>
+                    <div key={d.id} className='h-40 col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 grid place-content-center shadow-xl shadow-[#00000005] rounded-xl'>
                         {d.name}
                     </div>
                 ))

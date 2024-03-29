@@ -39,7 +39,10 @@ export class BlogService {
 
     async findAll({ user_id, prisma }: IFindAll) {
         const PRISMA = prisma || this.prisma;
-        const data = await PRISMA.blog.findMany({ where: { user: { id: user_id } }, select: { id: true, title: true, slug: true, tags: { select: { id: true, name: true } } } })
+        const data = await PRISMA.blog.findMany({
+            where: { user: { id: user_id } },
+            select: { id: true, title: true, slug: true, created_at: true, updated_at: true, tags: { select: { id: true, name: true } } }
+        })
         return data;
     }
 

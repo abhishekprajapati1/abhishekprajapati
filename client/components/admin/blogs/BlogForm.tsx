@@ -19,6 +19,7 @@ import TagInput from '@/components/ui/tag-input';
 import SpinnerIcon from '@/components/icons/SpinnerIcon';
 import useFetch from '@/lib/hooks/useFetch';
 import ENDPOINTS from '@/lib/endpoints';
+import useUpdateBlog from '@/lib/mutations/blogs/useUpdateBlog';
 
 
 interface BlogFormProps {
@@ -28,7 +29,8 @@ interface BlogFormProps {
 const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
     const { data } = useFetch({ endpoint: ENDPOINTS.GET_BLOG_FOR_ADMIN(blog_id), enabledKey: blog_id, validate: true });
     const { mutate, isPending } = useCreateBlog();
-
+    const { mutate: updateBlog, isPending: isUpdating } = useUpdateBlog(blog_id || "");
+    const isMutating = isUpdating || isPending;
     const [status, setStatus] = useState<PostStatus>("draft")
     const { control, handleSubmit, setValue, reset } = useForm<IPostForm>({
         mode: "all",
@@ -44,7 +46,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
         data.status = status;
 
         if (blog_id) {
-
+            updateBlog(data);
         } else {
             mutate(data);
         }
@@ -65,7 +67,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={`flex flex-wrap md:flex-nowrap  gap-6 ${isPending && "pointer-events-none"}`}>
+        <form onSubmit={handleSubmit(onSubmit)} className={`flex flex-wrap md:flex-nowrap  gap-6 ${isMutating && "pointer-events-none"}`}>
             <div className='flex-grow md:max-w-[70%]'>
                 <Controller
                     name='title'
@@ -107,13 +109,13 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
             </div>
             <div className='w-[250px] md:w-[350px] flex flex-col-reverse md:flex-col gap-4 flex-shrink-0 md:flex-shrink'>
                 <div className='flex items-center flex-wrap gap-4'>
-                    <button disabled={isPending} onClick={() => setStatus("draft")} className='flex-grow flex items-center justify-center gap-2 bg-green-200 hover:bg-green-100 text-green-500'>
+                    <button disabled={isMutating} onClick={() => setStatus("draft")} className='flex-grow flex items-center justify-center gap-2 bg-green-200 hover:bg-green-100 text-green-500'>
                         {
                             status === "draft" && (
                                 <>
-                                    {isPending && <SpinnerIcon className='w-5 h-5' />}
-                                    {!isPending && <span> Save draft</span>}
-                                    {isPending && <span>Saving...</span>}
+                                    {isMutating && <SpinnerIcon className='w-5 h-5' />}
+                                    {!isMutating && <span> Save draft</span>}
+                                    {isMutating && <span>Saving...</span>}
                                 </>
                             )
                         }
@@ -121,13 +123,13 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
                             status !== "draft" && <span>Save draft</span>
                         }
                     </button>
-                    <button disabled={isPending} onClick={() => setStatus("published")} className='w-fit flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white'>
+                    <button disabled={isMutating} onClick={() => setStatus("published")} className='w-fit flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white'>
                         {
                             status === "published" && (
                                 <>
-                                    {isPending && <SpinnerIcon className='w-5 h-5' />}
-                                    {!isPending && <span>Publish</span>}
-                                    {isPending && <span>Publishing...</span>}
+                                    {isMutating && <SpinnerIcon className='w-5 h-5' />}
+                                    {!isMutating && <span>Publish</span>}
+                                    {isMutating && <span>Publishing...</span>}
                                 </>
                             )
                         }

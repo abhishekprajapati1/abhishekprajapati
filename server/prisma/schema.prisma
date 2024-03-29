@@ -33,13 +33,24 @@ model Blog {
   title      String
   slug       String      @unique
   content    String
+  keywords   String[]
   status     BlogStatus? @default(draft)
   created_at DateTime?   @default(now())
   updated_at DateTime?   @updatedAt
+  views      Int?        @default(0)
+  upvote     Int?        @default(0)
+  downvote   Int?        @default(0)
   user       User        @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id    String      @db.ObjectId
   tags       Tag[]       @relation(fields: [tag_ids], references: [id])
   tag_ids    String[]    @db.ObjectId
+}
+
+model Comments {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  text     String
+  upvote   Int?   @default(0)
+  downvote Int?   @default(0)
 }
 
 model Tag {
