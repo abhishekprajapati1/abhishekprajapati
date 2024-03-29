@@ -14,7 +14,6 @@ const LoginPage = () => {
         }
     });
     const onSubmit = (data: ILoginForm) => {
-        console.log("see this", data);
         mutate(data);
     }
 

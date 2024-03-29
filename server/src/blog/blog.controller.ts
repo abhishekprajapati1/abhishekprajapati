@@ -36,7 +36,6 @@ export class BlogController {
 
         // check if duplicate slug
         const exist = await this.blogService.isDuplicateSlug({ slug });
-        console.log('see this', exist);
         if (exist) throw new BadRequestException({ success: false, message: "An article already exists with the same slug." });
 
 

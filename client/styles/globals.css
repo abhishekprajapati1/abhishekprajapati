@@ -23,6 +23,7 @@
 }
 
 @layer base {
+
   input {
     @apply px-4 py-2 bg-gray-50
   }
@@ -47,4 +48,8 @@
 
 .ql-editor {
   padding: 0px !important;
+}
+
+.ql-container {
+  font-family: unset !important;
 }

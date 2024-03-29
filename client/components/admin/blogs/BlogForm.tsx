@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
+import { Poppins } from 'next/font/google'
+const poppins = Poppins({ weight: '400', style: "normal", subsets: ["latin"] });
 
 const ReactQuill = dynamic(
     async () => await import('react-quill'),
@@ -89,6 +91,8 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
                                     modules={modules}
                                     formats={formats}
                                     theme='bubble'
+                                    className={`${poppins.className}`}
+                                    placeholder='Start typing here...'
                                     style={{
                                         boxSizing: 'border-box',
                                         padding: 0,
