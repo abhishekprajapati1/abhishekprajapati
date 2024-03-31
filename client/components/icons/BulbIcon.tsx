@@ -1,7 +1,7 @@
 import { IconInterface } from '@/lib/types'
 import React from 'react'
 
-const MoonIcon: React.FC<IconInterface> = (props) => {
+const BulbIcon: React.FC<IconInterface> = (props) => {
     return (
         <svg
             stroke="currentColor"
@@ -17,4 +17,4 @@ const MoonIcon: React.FC<IconInterface> = (props) => {
     )
 }
 
-export default MoonIcon
+export default BulbIcon

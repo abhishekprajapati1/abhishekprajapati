@@ -13,6 +13,32 @@ interface IUpdateBlog extends IWithPrismaClient { blog_id: string, data: Prisma.
 
 @Injectable()
 export class BlogService {
+    blogSelect: Prisma.BlogSelect = {
+        id: true,
+        slug: true,
+        title: true,
+        content: true,
+        views: true,
+        upvote: true,
+        downvote: true,
+        status: true,
+        created_at: true,
+        updated_at: true,
+        keywords: true,
+        user: {
+            select: {
+                id: true,
+                name: true,
+                username: true
+            }
+        },
+        tags: {
+            select: {
+                id: true,
+                name: true
+            }
+        }
+    }
     constructor(private readonly prisma: PrismaService) { }
 
     async isDuplicateSlug({ slug, prisma }: IisDuplicateSlug) {
@@ -37,6 +63,19 @@ export class BlogService {
         })
     }
 
+    async findRecent() {
+        return await this.prisma.blog.findMany({
+            take: 5,
+            orderBy: {
+                created_at: 'desc'
+            },
+            where: {
+                status: "published"
+            },
+            select: this.blogSelect,
+        })
+    }
+
     async findAll({ user_id, prisma }: IFindAll) {
         const PRISMA = prisma || this.prisma;
         const data = await PRISMA.blog.findMany({
@@ -56,6 +95,7 @@ export class BlogService {
                 content: true,
                 created_at: true,
                 updated_at: true,
+                keywords: true,
                 status: true,
                 slug: true,
                 user: {
@@ -81,6 +121,7 @@ export class BlogService {
                 created_at: true,
                 updated_at: true,
                 status: true,
+                keywords: true,
                 slug: true,
                 user: {
                     select: {

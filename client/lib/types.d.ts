@@ -54,7 +54,11 @@ export interface IBlog {
     id: string;
     title: string;
     content: string;
+    views: number;
+    upvote: number;
+    downvote: number;
     status: BlogStatus;
+    keywords: string[];
     created_at: Date;
     updated_at: Date;
     tags: ITag[];

@@ -3,6 +3,7 @@ import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { ITenant, Tenant } from '../auth/decorators/tenant.decorator';
 import { UpdateBlogDto, UpdateBlogStatusDto } from './dto/update-blog.dto';
+import { PublicApi } from '../auth/decorators/public.decorator';
 
 @Controller('blogs')
 export class BlogController {
@@ -14,6 +15,14 @@ export class BlogController {
         return { success: true, data: blogs }
     }
 
+    @PublicApi()
+    @Get("recent")
+    async getRecentArticles() {
+        const blogs = await this.blogService.findRecent();
+        return { success: true, data: blogs }
+    }
+
+    @PublicApi()
     @Get(":slug")
     async findSingleBlogPost(@Param('slug') slug: string) {
         const data = await this.blogService.findOne({ slug });

@@ -10,7 +10,7 @@ interface EducationSectionProps {
 const EducationSection: FC<EducationSectionProps> = ({ title, institute, duration, description }) => {
     return (
         <div className='flex flex-col gap-8'>
-            <div className='flex items-center gap-4'>
+            <div className='flex items-center flex-wrap gap-4'>
                 <span className='text-sm font-normal bg-blue-200 py-1 px-4 rounded-xl text-blue-700'>academics</span>
                 <h1 className='font-semibold text-2xl'>{title}</h1>
             </div>

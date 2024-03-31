@@ -31,9 +31,7 @@ const Provider: React.FC<WrapperProps> = ({ children }) => {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <ThemeProvider>
-                {children}
-            </ThemeProvider>
+            {children}
         </QueryClientProvider>
     )
 }

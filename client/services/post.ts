@@ -1,18 +1,19 @@
+import api from "@/lib/api";
+import ENDPOINTS from "@/lib/endpoints";
+
 export const fetchPosts = async () => {
     try {
-        const response = await fetch(process.env.BLOGGER_BLOG_URI + "posts?key=" + process.env.BLOGGER_API_KEY);
-        const data = await response.json();
-        return data.items;
+        const response = await api.get(ENDPOINTS.RECENT_BLOGS);
+        return response.data?.data;
     } catch (error) {
         console.log("see this error", error);
     }
 }
 
-export const fetchPost = async (id: string) => {
+export const fetchPost = async (slug: string) => {
     try {
-        const response = await fetch(`${process.env.BLOGGER_BLOG_URI}posts/${id}?key=${process.env.BLOGGER_API_KEY}`);
-        const data = response.json();
-        return data;
+        const response = await api.get(`blogs/${slug}`);
+        return response.data?.data;
     } catch (error) {
         console.log("see this error", error);
     }

@@ -1,13 +1,13 @@
 import PostCard from '@/components/PostCard';
 import { commonKeywords } from '@/lib/list';
-import { PostType } from '@/lib/types';
+import { IBlog, PostType } from '@/lib/types';
 import { fetchPosts } from '@/services/post';
 import { Metadata } from 'next';
 import React from 'react'
 
 export const metadata: Metadata = {
-    title: 'Blogs | Abhishek Prajapati',
-    description: `Explore a collection of insightful and engaging articles on my blogs page. Dive into the world of technology, development, and beyond as I share my experiences, insights, and perspectives. Stay informed, inspired, and join the conversation on the ever-evolving landscape of the digital realm.`,
+    title: 'Blog | Abhishek Prajapati',
+    description: `Explore a collection of insightful and engaging articles on my blog page. Dive into the world of technology, development, and beyond as I share my experiences, insights, and perspectives. Stay informed, inspired, and join the conversation on the ever-evolving landscape of the digital realm.`,
     verification: {
         google: "UBW1X58fR9f4b1tUjStrdvJm6h_1CvFOTHkXEUgCi1w"
     },
@@ -16,9 +16,7 @@ export const metadata: Metadata = {
 
 
 const BlogListingPage = async () => {
-    const posts: PostType[] | null = await fetchPosts();
-    posts?.pop();
-    posts?.pop();
+    const posts: IBlog[] | null = await fetchPosts();
 
     return (
         <main className='mt-14'>

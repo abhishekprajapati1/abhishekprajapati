@@ -1,24 +1,36 @@
 'use client'
-
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
-import MoonIcon from '../icons/MoonIcon'
+import { useEffect } from 'react';
+import useLocalStorage from '@/lib/hooks/useLocalStorage';
+import BulbIcon from '../icons/BulbIcon';
 
 const ThemeToggler = () => {
-    const [mounted, setMounted] = useState(false)
-    const { theme, setTheme } = useTheme()
+    const { value: theme, updateValue: setTheme } = useLocalStorage({ name: "theme" });
 
-    useEffect(() => {
-        setMounted(true)
-    }, [])
-
-    if (!mounted) {
-        return null
+    const toggleTheme = () => {
+        const document = window?.document;
+        if (document) {
+            let htmlClasses = document.documentElement.classList;
+            if (htmlClasses.contains("dark")) {
+                htmlClasses.remove("dark");
+                setTheme("light");
+            } else {
+                htmlClasses.add("dark");
+                setTheme("dark");
+            }
+        }
     }
 
+    useEffect(() => {
+        if (!theme || theme === "light") {
+            document.documentElement.classList.remove("dark");
+        } else {
+            document.documentElement.classList.add("dark");
+        }
+    }, [theme]);
+
     return (
-        <button onClick={() => setTheme(theme === "light" ? "dark" : "light")} className="">
-            <MoonIcon className={`w-[25px] h-[25px] ${theme === "light" ? 'text-gray-400' : "text-yellow-500"}`} />
+        <button type='button' className='icon-button dark:text-primary' onClick={toggleTheme}>
+            <BulbIcon className={`w-[25px] h-[25px]`} />
         </button>
     )
 }

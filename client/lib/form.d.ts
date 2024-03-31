@@ -9,6 +9,7 @@ export interface IPostForm {
     content: string;
     status?: PostStatus;
     tag_ids: string[];
+    keywords: string[];
     slug: string;
 }
 

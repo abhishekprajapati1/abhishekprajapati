@@ -1,14 +1,11 @@
 import React from 'react'
 import PostCard from '../PostCard';
 import { fetchPosts } from '@/services/post';
-import { PostType } from '@/lib/types';
+import { IBlog } from '@/lib/types';
 
 
 const RecentArticles = async () => {
-    let posts: PostType[] | null = await fetchPosts();
-    posts?.pop();
-    posts?.pop();
-
+    let posts: IBlog[] | null = await fetchPosts();
 
     return (
         <div className='flex flex-col gap-8'>
@@ -18,9 +15,11 @@ const RecentArticles = async () => {
                 Join me in this journey where I try to turn complex tech talk into something everyone can understand. 📚✨
             </p>
 
-            {
-                Array.isArray(posts) && posts.map((post) => <PostCard key={post.id} data={post} />)
-            }
+            <div className='divide-y'>
+                {
+                    Array.isArray(posts) && posts.map((post) => <PostCard key={post.id} data={post} />)
+                }
+            </div>
         </div>
     )
 }

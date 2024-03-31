@@ -5,7 +5,7 @@ import useFetch from '@/lib/hooks/useFetch';
 import ENDPOINTS from '@/lib/endpoints';
 
 
-interface TagInputProps {
+export interface TagInputProps {
     value: string[] | undefined;
     onChange: (value: string[]) => void;
     label?: string;
@@ -80,7 +80,7 @@ const TagInput: FC<TagInputProps> = ({ id, label, value, onChange }) => {
                 <input
                     id={id}
                     type='text'
-                    className='border border-gray-300 rounded-xl w-full'
+                    className='border bg-background text-foreground dark:bg-foreground dark:text-background rounded-xl w-full'
                     placeholder='Search tags...'
                     value={query}
                     onChange={e => setQuery(e.target.value)}
@@ -88,11 +88,11 @@ const TagInput: FC<TagInputProps> = ({ id, label, value, onChange }) => {
                 />
                 {
                     optionsVisible && (
-                        <div className='absolute w-full h-40 border p-2 border-gray-300 rounded-xl top-[101%]'>
+                        <div className='absolute w-full h-40 border p-2 border-gray-300 bg-background text-foreground dark:bg-foreground dark:text-background rounded-xl top-[101%]'>
                             <div className='w-full h-full overflow-auto'>
                                 {
                                     filteredData?.map((d: any) => (
-                                        <button onClick={() => { handleClick(d); setOptionsVisible(false); setQuery("") }} type='button' key={d.id} className='py-0 px-2 hover:bg-gray-100 w-full font-normal text-start rounded-md cursor-pointer'>
+                                        <button onClick={() => { handleClick(d); setOptionsVisible(false); setQuery("") }} type='button' key={d.id} className='py-0 px-2 hover:bg-primary/10 hover:text-primary  w-full font-normal text-start rounded-md cursor-pointer'>
                                             {d.name}
                                         </button>
                                     ))

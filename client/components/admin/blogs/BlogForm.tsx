@@ -1,17 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import dynamic from "next/dynamic";
-import "react-quill/dist/quill.snow.css";
-import "react-quill/dist/quill.bubble.css";
-import { Poppins } from 'next/font/google'
-const poppins = Poppins({ weight: '400', style: "normal", subsets: ["latin"] });
-
-const ReactQuill = dynamic(
-    async () => await import('react-quill'),
-    {
-        ssr: false,
-    }
-);
 import { Controller, useForm } from 'react-hook-form';
 import { IPostForm, PostStatus } from '@/lib/form';
 import useCreateBlog from '@/lib/mutations/blogs/useCreateBlog';
@@ -20,6 +8,8 @@ import SpinnerIcon from '@/components/icons/SpinnerIcon';
 import useFetch from '@/lib/hooks/useFetch';
 import ENDPOINTS from '@/lib/endpoints';
 import useUpdateBlog from '@/lib/mutations/blogs/useUpdateBlog';
+import KeywordInput from '@/components/ui/tag-input/KewordInput';
+import TextEditor from '@/components/ui/TextEditor';
 
 
 interface BlogFormProps {
@@ -59,7 +49,8 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
                 content: data.content,
                 title: data.title,
                 tag_ids: data.tag_ids,
-                slug: data.slug
+                slug: data.slug,
+                keywords: data.keywords,
             };
             reset(payloadToReset)
         }
@@ -67,7 +58,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={`flex flex-wrap md:flex-nowrap  gap-6 ${isMutating && "pointer-events-none"}`}>
+        <form onSubmit={handleSubmit(onSubmit)} className={`flex flex-wrap md:flex-nowrap  md:gap-x-10 ${isMutating && "pointer-events-none"}`}>
             <div className='flex-grow md:max-w-[70%]'>
                 <Controller
                     name='title'
@@ -75,7 +66,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
                     render={({ field: { value, onChange } }) => {
                         return (
                             <textarea
-                                className='text-3xl w-full bg-white focus-visible:outline-none break-words'
+                                className='text-3xl w-full bg-background dark:bg-foreground text-foreground dark:text-background focus-visible:outline-none break-words'
                                 placeholder='Blog title...'
                                 value={value}
                                 onChange={e => { onChange(e.target.value); setValue("slug", generateSlug(e.target.value)) }}
@@ -89,27 +80,16 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
                         control={control}
                         render={({ field: { value, onChange } }) => {
                             return (
-                                <ReactQuill
-                                    modules={modules}
-                                    formats={formats}
-                                    theme='bubble'
-                                    className={`${poppins.className}`}
-                                    placeholder='Start typing here...'
-                                    style={{
-                                        boxSizing: 'border-box',
-                                        padding: 0,
-                                    }}
-                                    value={value}
-                                    onChange={onChange}
-                                />
+                                <TextEditor value={value} onChange={onChange} />
                             )
                         }}
                     />
                 </div>
             </div>
+
             <div className='w-[250px] md:w-[350px] flex flex-col-reverse md:flex-col gap-4 flex-shrink-0 md:flex-shrink'>
                 <div className='flex items-center flex-wrap gap-4'>
-                    <button disabled={isMutating} onClick={() => setStatus("draft")} className='flex-grow flex items-center justify-center gap-2 bg-green-200 hover:bg-green-100 text-green-500'>
+                    <button disabled={isMutating} onClick={() => setStatus("draft")} className='flex-grow flex items-center justify-center gap-2 bg-primary/10 hover:bg-primary/5 text-primary'>
                         {
                             status === "draft" && (
                                 <>
@@ -123,7 +103,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
                             status !== "draft" && <span>Save draft</span>
                         }
                     </button>
-                    <button disabled={isMutating} onClick={() => setStatus("published")} className='w-fit flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white'>
+                    <button disabled={isMutating} onClick={() => setStatus("published")} className='w-fit flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/80'>
                         {
                             status === "published" && (
                                 <>
@@ -149,11 +129,28 @@ const BlogForm: React.FC<BlogFormProps> = ({ blog_id }) => {
                                 return (
                                     <textarea
                                         placeholder='enter-custom-slug'
-                                        className='w-full h-fit resize-y'
+                                        className='w-full h-fit bg-background dark:bg-foreground text-foreground dark:text-background'
                                         rows={4}
                                         value={value}
                                         onChange={e => onChange(generateSlug(e.target.value))}
                                     ></textarea>
+                                )
+                            }}
+                        />
+                    </div>
+
+                    <div className='mb-4'>
+                        <Controller
+                            name='keywords'
+                            control={control}
+                            render={({ field: { value, onChange } }) => {
+                                return (
+                                    <KeywordInput
+                                        label='keywords'
+                                        id='keywords-input'
+                                        value={value}
+                                        onChange={onChange}
+                                    />
                                 )
                             }}
                         />
@@ -180,29 +177,5 @@ const generateSlug = (str: string) => {
         return ""
     }
 }
-
-const modules = {
-    toolbar: [
-        [{ size: ["small", false, "large", "huge"] }],
-        ["bold", "italic", "underline", "strike", "blockquote"],
-        [{ list: "ordered" }, { list: "bullet" }],
-        ["link", "image"],
-        [
-            { list: "ordered" },
-            { list: "bullet" },
-            { indent: "-1" },
-            { indent: "+1" },
-            { align: [] }
-        ],
-        [{ "color": ["#000000", "#e60000", "#ff9900", "#ffff00", "#008a00", "#0066cc", "#9933ff", "#ffffff", "#facccc", "#ffebcc", "#ffffcc", "#cce8cc", "#cce0f5", "#ebd6ff", "#bbbbbb", "#f06666", "#ffc266", "#ffff66", "#66b966", "#66a3e0", "#c285ff", "#888888", "#a10000", "#b26b00", "#b2b200", "#006100", "#0047b2", "#6b24b2", "#444444", "#5c0000", "#663d00", "#666600", "#003700", "#002966", "#3d1466", 'custom-color'] }],
-    ]
-};
-
-const formats = [
-    "header", "height", "bold", "italic",
-    "underline", "strike", "blockquote",
-    "list", "color", "bullet", "indent",
-    "link", "image", "align", "size",
-];
 
 export default BlogForm
