@@ -12,7 +12,7 @@ export const fetchPosts = async () => {
 
 export const fetchPost = async (slug: string) => {
     try {
-        const response = await api.get(`blogs/${slug}`);
+        const response = await api.get(ENDPOINTS.GET_BLOG_PUBLIC(slug));
         return response.data?.data;
     } catch (error) {
         console.log("see this error", error);

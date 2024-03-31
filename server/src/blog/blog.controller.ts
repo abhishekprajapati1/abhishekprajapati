@@ -16,14 +16,14 @@ export class BlogController {
     }
 
     @PublicApi()
-    @Get("recent")
+    @Get("public/recent")
     async getRecentArticles() {
         const blogs = await this.blogService.findRecent();
         return { success: true, data: blogs }
     }
 
     @PublicApi()
-    @Get(":slug")
+    @Get("public/:slug")
     async findSingleBlogPost(@Param('slug') slug: string) {
         const data = await this.blogService.findOne({ slug });
         return { success: true, data }
