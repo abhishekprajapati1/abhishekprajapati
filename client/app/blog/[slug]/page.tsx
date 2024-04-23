@@ -12,7 +12,7 @@ type ParamType = {
 }
 
 export async function generateMetadata({ params }: ParamType): Promise<Metadata> {
-    const data: IBlog | null = await fetchPost(params.slug);
+    const data: any = await fetchPost(params.slug);
     return {
         title: data?.title,
         keywords: data?.keywords?.join(","),
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: ParamType): Promise<Metadata>
 
 const BlogDetailPage: React.FC<ParamType> = async ({ params }) => {
 
-    const data: IBlog | null = await fetchPost(params.slug);
+    const data: any = await fetchPost(params.slug);
 
     return (
         <main className='mt-14'>
