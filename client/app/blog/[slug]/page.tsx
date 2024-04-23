@@ -1,4 +1,3 @@
-import { IBlog, PostType } from '@/lib/types'
 import { fetchPost } from '@/services/post'
 import dayjs from 'dayjs'
 import { Metadata } from 'next'
