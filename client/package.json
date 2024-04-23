@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "npx dotenv -e .env.local --  npx prisma generate && next build",
+    "build": "npx dotenv -e .env.local --  next build",
+    "prisma:generate": "npx dotenv -e .env.local --  npx prisma generate",
     "prisma:studio": "npx dotenv -e .env.local -- npx prisma studio",
     "start": "next start",
     "lint": "next lint"
