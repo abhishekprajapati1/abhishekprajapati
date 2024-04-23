@@ -1,7 +1,7 @@
 import PostCard from '@/components/PostCard';
 import { commonKeywords } from '@/lib/list';
 import { IBlog, PostType } from '@/lib/types';
-import { fetchPosts } from '@/services/post';
+import { fetchAllPosts, fetchPosts } from '@/services/post';
 import { Metadata } from 'next';
 import React from 'react'
 
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 
 const BlogListingPage = async () => {
-    const posts: IBlog[] | null = await fetchPosts();
+    const allPosts: IBlog[] | null = await fetchAllPosts();
 
     return (
         <main className='mt-14'>
@@ -24,7 +24,7 @@ const BlogListingPage = async () => {
                 <h1 className='font-semibold text-2xl'>read my blog</h1>
                 <div className='flex flex-col gap-6'>
                     {
-                        Array.isArray(posts) && posts?.map((post) => <PostCard key={post.id} data={post} />)
+                        Array.isArray(allPosts) && allPosts?.map((post) => <PostCard key={post.id} data={post} />)
                     }
                 </div>
             </div>

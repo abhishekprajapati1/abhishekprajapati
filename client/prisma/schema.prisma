@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  username String @unique
+  name     String
+  password String
+  blogs    Blog[]
+  tags     Tag[]
+}
+
+enum BlogStatus {
+  published
+  draft
+  archived
+}
+
+model Blog {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  slug       String      @unique
+  content    String
+  keywords   String[]
+  status     BlogStatus? @default(draft)
+  created_at DateTime?   @default(now())
+  updated_at DateTime?   @updatedAt
+  views      Int?        @default(0)
+  upvote     Int?        @default(0)
+  downvote   Int?        @default(0)
+  user       User        @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id    String      @db.ObjectId
+  tags       Tag[]       @relation(fields: [tag_ids], references: [id])
+  tag_ids    String[]    @db.ObjectId
+}
+
+model Comments {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  text     String
+  upvote   Int?   @default(0)
+  downvote Int?   @default(0)
+}
+
+model Tag {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String    @unique
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  blogs      Blog[]    @relation(fields: [blog_ids], references: [id])
+  blog_ids   String[]  @db.ObjectId
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id    String    @db.ObjectId
+}
